@@ -1,0 +1,10 @@
+# Nunca versionar segredos ou configs locais
+*.env
+.env
+secrets/
+*.secret
+
+# Artefatos locais
+node_modules/
+*.log
+.DS_Store
