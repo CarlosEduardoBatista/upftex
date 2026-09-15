@@ -1,21 +1,21 @@
-# UPFTeX - Ambiente Colaborativo de Escrita Academica (UPF)
-# Imagem customizada baseada no Overleaf Community Edition, versao fixada em 6.3.0.
 FROM sharelatex/sharelatex:6.3.0
 
 LABEL maintainer="Carlos Eduardo Rosa Batista"
 LABEL description="UPFTeX - Overleaf CE customizado para a Universidade de Passo Fundo"
 
-# --- Branding (Nivel 2) entra aqui depois ---
+COPY overlay/services/web/modules/oidc-upf /overleaf/services/web/modules/oidc-upf
 
-# --- SSO/OIDC: dependencia de autenticacao ---
-# O monorepo do Overleaf usa workspaces (dependencias "workspace:*"), o que impede
-# um "npm install" direto dentro de services/web. Solucao: instalar a biblioteca de
-# forma isolada num diretorio temporario e copiar o resultado para o node_modules
-# do servico web, onde o Node consegue resolve-la em tempo de execucao.
-RUN mkdir -p /tmp/oidc-dep \
- && cd /tmp/oidc-dep \
+RUN mkdir -p /tmp/oidc-build \
+ && cd /tmp/oidc-build \
  && npm init -y >/dev/null 2>&1 \
- && npm install passport-openidconnect --legacy-peer-deps \
- && mkdir -p /overleaf/services/web/node_modules \
- && cp -r /tmp/oidc-dep/node_modules/. /overleaf/services/web/node_modules/ \
- && rm -rf /tmp/oidc-dep
+ && npm install passport-openidconnect --legacy-peer-deps >/dev/null 2>&1 \
+ && npm install esbuild >/dev/null 2>&1 \
+ && printf "import { Strategy } from 'passport-openidconnect'\nexport { Strategy }\n" > entry.mjs \
+ && npx esbuild entry.mjs --bundle --platform=node --format=esm \
+      --banner:js="import { createRequire } from 'module'; const require = createRequire(import.meta.url);" \
+      --outfile=/overleaf/services/web/modules/oidc-upf/app/src/vendor/passport-openidconnect.bundle.mjs \
+ && test -f /overleaf/services/web/modules/oidc-upf/app/src/vendor/passport-openidconnect.bundle.mjs \
+ && rm -rf /tmp/oidc-build
+
+RUN sed -i "s|moduleImportSequence: \[|moduleImportSequence: ['oidc-upf',|" /overleaf/services/web/config/settings.defaults.js \
+ && grep -q "moduleImportSequence: \['oidc-upf'," /overleaf/services/web/config/settings.defaults.js

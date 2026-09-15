@@ -1,5 +1,5 @@
 import Settings from '@overleaf/settings'
-import { Strategy as OIDCStrategy } from 'passport-openidconnect'
+import { Strategy as OIDCStrategy } from './vendor/passport-openidconnect.bundle.mjs'
 import OIDCAuthenticationController from './OIDCAuthenticationController.mjs'
 
 const GOOGLE_ISSUER = 'https://accounts.google.com'
