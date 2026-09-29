@@ -18,14 +18,6 @@ const OIDCModuleManager = {
       clientSecret: process.env.OVERLEAF_OIDC_CLIENT_SECRET,
       allowedDomain: process.env.OVERLEAF_OIDC_ALLOWED_DOMAIN || 'upf.br',
     }
-
-    if (!Settings.oauthProviders) {
-      Settings.oauthProviders = {}
-    }
-    Settings.oauthProviders[PROVIDER_ID] = {
-      name: 'UPF (Google)',
-availableIf: () => true,
-    }
   },
 
   passportSetup(passport, callback) {
@@ -37,7 +29,7 @@ availableIf: () => true,
       clientID: Settings.oidcUpf.clientID,
       clientSecret: Settings.oidcUpf.clientSecret,
       callbackURL: `${Settings.siteUrl.replace(/\/+$/, '')}/oidc/login/callback`,
-      scope: 'openid profile email',
+      scope: 'profile email',
       passReqToCallback: true,
     }
     try {

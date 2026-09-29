@@ -17,5 +17,6 @@ RUN mkdir -p /tmp/oidc-build \
  && test -f /overleaf/services/web/modules/oidc-upf/app/src/vendor/passport-openidconnect.bundle.mjs \
  && rm -rf /tmp/oidc-build
 
-RUN sed -i "s|moduleImportSequence: \[|moduleImportSequence: ['oidc-upf',|" /overleaf/services/web/config/settings.defaults.js \
- && grep -q "moduleImportSequence: \['oidc-upf'," /overleaf/services/web/config/settings.defaults.js
+RUN sed -i "s|moduleImportSequence: \[|oauthProviders: { 'oidc-upf': { name: 'UPF (Google)' } },\n  moduleImportSequence: ['oidc-upf',|" /overleaf/services/web/config/settings.defaults.js \
+ && grep -q "moduleImportSequence: \['oidc-upf'," /overleaf/services/web/config/settings.defaults.js \
+ && grep -q "oauthProviders: { 'oidc-upf'" /overleaf/services/web/config/settings.defaults.js
