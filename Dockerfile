@@ -4,6 +4,7 @@ LABEL maintainer="Carlos Eduardo Rosa Batista"
 LABEL description="UPFTeX - Overleaf CE customizado para a Universidade de Passo Fundo"
 
 COPY overlay/services/web/modules/oidc-upf /overleaf/services/web/modules/oidc-upf
+COPY overlay/services/web/app/views/user/login.pug /overleaf/services/web/app/views/user/login.pug
 
 RUN mkdir -p /tmp/oidc-build \
  && cd /tmp/oidc-build \
