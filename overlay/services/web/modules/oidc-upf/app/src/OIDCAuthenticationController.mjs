@@ -15,7 +15,7 @@ const OIDCAuthenticationController = {
         return next(err)
       }
       if (!user) {
-        return res.redirect('/login')
+        return res.redirect('/login?oidc_error=domain')
       }
       try {
         await AuthenticationController.promises.finishLogin(user, req, res)
