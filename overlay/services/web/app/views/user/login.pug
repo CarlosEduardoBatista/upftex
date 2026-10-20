@@ -68,11 +68,8 @@ block content
 						if getReqQueryParam("oidc_error") === "domain"
 							.text-center(style="background-color:#f8d7da; color:#842029; border:1px solid #f5c2c7; border-radius:8px; padding:12px; margin-bottom:16px; font-weight:500")
 								| Acesso permitido apenas para contas institucionais. Use sua conta da Universidade de Passo Fundo.
-						.page-header
-							if login_support_title
-								h1 !{login_support_title}
-							else
-								h1 #{translate("log_in")}
+						.text-center.mb-4
+							img(src='/img/upf/upftex-logo-navbar.png' alt='UPFTeX' style='max-width: 220px; height: auto;')
 						form(name='loginForm' data-ol-async-form action='/login' method='POST')
 							input(name='_csrf' type='hidden' value=csrfToken)
 							+formMessagesNewStyle
