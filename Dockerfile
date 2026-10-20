@@ -3,8 +3,19 @@ FROM sharelatex/sharelatex:6.3.0
 LABEL maintainer="Carlos Eduardo Rosa Batista"
 LABEL description="UPFTeX - Overleaf CE customizado para a Universidade de Passo Fundo"
 
+RUN tlmgr update --self \
+ && tlmgr --no-execute-actions install scheme-full \
+ && tlmgr path add
+
+RUN sed -i "s|moduleImportSequence: \[|oauthProviders: { 'oidc-upf': { name: 'UPF (Google)' } },\n  moduleImportSequence: ['oidc-upf',|" /overleaf/services/web/config/settings.defaults.js \
+ && grep -q "moduleImportSequence: \['oidc-upf'," /overleaf/services/web/config/settings.defaults.js \
+ && grep -q "oauthProviders: { 'oidc-upf'" /overleaf/services/web/config/settings.defaults.js
+
+COPY overlay/services/web/public/img/upf /overleaf/services/web/public/img/upf
+
+COPY overlay/services/web/public/favicon.svg overlay/services/web/public/favicon.ico overlay/services/web/public/favicon-16x16.png overlay/services/web/public/favicon-32x32.png overlay/services/web/public/apple-touch-icon.png /overleaf/services/web/public/
+
 COPY overlay/services/web/modules/oidc-upf /overleaf/services/web/modules/oidc-upf
-COPY overlay/services/web/app/views/user/login.pug /overleaf/services/web/app/views/user/login.pug
 
 RUN mkdir -p /tmp/oidc-build \
  && cd /tmp/oidc-build \
@@ -18,10 +29,4 @@ RUN mkdir -p /tmp/oidc-build \
  && test -f /overleaf/services/web/modules/oidc-upf/app/src/vendor/passport-openidconnect.bundle.mjs \
  && rm -rf /tmp/oidc-build
 
-RUN sed -i "s|moduleImportSequence: \[|oauthProviders: { 'oidc-upf': { name: 'UPF (Google)' } },\n  moduleImportSequence: ['oidc-upf',|" /overleaf/services/web/config/settings.defaults.js \
- && grep -q "moduleImportSequence: \['oidc-upf'," /overleaf/services/web/config/settings.defaults.js \
- && grep -q "oauthProviders: { 'oidc-upf'" /overleaf/services/web/config/settings.defaults.js
-
-RUN tlmgr update --self \
- && tlmgr install scheme-full \
- && tlmgr path add
+COPY overlay/services/web/app/views/user/login.pug /overleaf/services/web/app/views/user/login.pug

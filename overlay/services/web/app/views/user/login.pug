@@ -4,35 +4,92 @@ block vars
 	- isWebsiteRedesign = true
 
 block content
-	main#main-content.content
+	style.
+		#main-content.upf-login-bg {
+			background-image: url('/img/upf/login-bg.png');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			min-height: calc(100vh - 68px);
+		}
+		.upf-login-card {
+			background: #ffffff;
+			border-radius: 12px;
+			box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+			padding: 32px 28px;
+			margin-top: 48px;
+		}
+		.site-footer {
+			position: relative;
+		}
+		.site-footer::before {
+			content: "";
+			position: absolute;
+			top: -10px;
+			left: 0;
+			right: 0;
+			height: 10px;
+			background: linear-gradient(to right, #076D3B, #289C39, #76B729, #C6D500, #F2DE00, #F5A400, #EE7900, #E24200, #DB2325, #C30710);
+		}
+		.copyright-notice {
+			font-size: 11px !important;
+			line-height: 1.3 !important;
+			color: #007735 !important;
+			margin: 0 auto 0 auto !important;
+			text-align: center !important;
+			max-width: 80% !important;
+		}
+		.site-footer-items {
+			font-size: 11px !important;
+		}
+		.site-footer-items a {
+			font-size: 11px !important;
+		}
+		.site-footer {
+			padding-top: 4px !important;
+			padding-bottom: 4px !important;
+		}
+		.site-footer .row {
+			margin-top: 0 !important;
+			margin-bottom: 0 !important;
+		}
+		.site-footer-items {
+			margin-bottom: 0 !important;
+			padding-bottom: 0 !important;
+		}
+		.site-footer ul.site-footer-items {
+			margin-bottom: 0 !important;
+		}
+	main#main-content.content.upf-login-bg
 		.container
 			.row
 				.col-lg-6.offset-lg-3.col-xl-4.offset-xl-4
-					if getReqQueryParam("oidc_error") === "domain"
-						.text-center(style="background-color:#f8d7da; color:#842029; border:1px solid #f5c2c7; border-radius:8px; padding:12px; margin-bottom:16px; font-weight:500")
-							| Acesso permitido apenas para contas institucionais. Use sua conta da Universidade de Passo Fundo.
-					.page-header
-						if login_support_title
-							h1 !{login_support_title}
-						else
-							h1 #{translate("log_in")}
-					form(name='loginForm' data-ol-async-form action='/login' method='POST')
-						input(name='_csrf' type='hidden' value=csrfToken)
-						+formMessagesNewStyle
-						.form-group
-							label(for='email') #{translate("email")}
-							input#email.form-control(name='email' type='email' required autofocus='true' autocomplete='username')
-						.form-group
-							label(for='password') #{translate("password")}
-							input#password.form-control(name='password' type='password' autocomplete='current-password' required)
-						.actions
-							button.btn-primary.btn(type='submit' data-ol-disabled-inflight)
-								span(data-ol-inflight='idle') #{translate("login")}
-								span(hidden data-ol-inflight='pending') #{translate("logging_in")}…
-							a.float-end(href='/user/password/reset') #{translate("forgot_your_password")}?
-						if login_support_text
+					.upf-login-card
+						if getReqQueryParam("oidc_error") === "domain"
+							.text-center(style="background-color:#f8d7da; color:#842029; border:1px solid #f5c2c7; border-radius:8px; padding:12px; margin-bottom:16px; font-weight:500")
+								| Acesso permitido apenas para contas institucionais. Use sua conta da Universidade de Passo Fundo.
+						.page-header
+							if login_support_title
+								h1 !{login_support_title}
+							else
+								h1 #{translate("log_in")}
+						form(name='loginForm' data-ol-async-form action='/login' method='POST')
+							input(name='_csrf' type='hidden' value=csrfToken)
+							+formMessagesNewStyle
+							.form-group
+								label(for='email') #{translate("email")}
+								input#email.form-control(name='email' type='email' required autofocus='true' autocomplete='username')
+							.form-group
+								label(for='password') #{translate("password")}
+								input#password.form-control(name='password' type='password' autocomplete='current-password' required)
+							.actions
+								button.btn-primary.btn(type='submit' data-ol-disabled-inflight)
+									span(data-ol-inflight='idle') #{translate("login")}
+									span(hidden data-ol-inflight='pending') #{translate("logging_in")}…
+								a.float-end(href='/user/password/reset') #{translate("forgot_your_password")}?
+							if login_support_text
+								hr
+								p.text-center !{login_support_text}
+						.text-center.mt-3
 							hr
-							p.text-center !{login_support_text}
-					.text-center.mt-3
-						hr
-						a.btn.btn-secondary.w-100(href="/oidc/login") Entrar com conta UPF (Google)
+							a.btn.btn-secondary.w-100(href="/oidc/login") Entrar com conta UPF (Google)
