@@ -4,14 +4,25 @@ LABEL maintainer="Carlos Eduardo Rosa Batista"
 LABEL description="UPFTeX - Overleaf CE customizado para a Universidade de Passo Fundo"
 
 # TeX Live completo. O --no-execute-actions contorna um bug do fmtutil nesta
-# imagem, mas pula as pos-acoes de instalacao; por isso elas sao executadas
-# explicitamente depois: mktexlsr (indice de arquivos), updmap-sys
-# --syncwithtrees (ativa todos os mapas de fonte) e fmtutil-sys (formatos).
+# imagem, mas pula as pos-acoes de instalacao dos pacotes. Elas sao refeitas
+# explicitamente: mktexlsr (indice de arquivos), tlmgr generate language
+# (hifenizacao), registro dos mapas de
+# fonte a partir do tlpdb + updmap-sys, e fmtutil-sys (formatos).
 RUN tlmgr update --self \
  && tlmgr --no-execute-actions install scheme-full \
  && mktexlsr \
- && updmap-sys --syncwithtrees \
+ && tlmgr generate language \
+ && ROOT=$(kpsewhich -var-value TEXMFROOT) \
+ && CFG=$ROOT/texmf-config/web2c/updmap.cfg \
+ && mkdir -p $(dirname $CFG) \
+ && grep -E '^execute add(Mixed|Kanji)?Map ' $ROOT/tlpkg/texlive.tlpdb | sed 's/^execute add//' | sort -u >> $CFG \
+ && updmap-sys \
+ && mktexlsr \
  && (fmtutil-sys --all || true)
+
+# Reindexa antes do updmap: o updmap.cfg criado acima so e encontrado
+# pelo kpsewhich depois de entrar no ls-R.
+RUN mktexlsr && updmap-sys
 
 RUN sed -i "s|moduleImportSequence: \[|oauthProviders: { 'oidc-upf': { name: 'UPF (Google)' } },\n  moduleImportSequence: ['oidc-upf',|" /overleaf/services/web/config/settings.defaults.js \
  && grep -q "moduleImportSequence: \['oidc-upf'," /overleaf/services/web/config/settings.defaults.js \

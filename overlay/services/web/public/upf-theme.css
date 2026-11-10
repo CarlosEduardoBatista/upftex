@@ -32,3 +32,103 @@
   align-items: center !important;
   min-height: 60px !important;
 }
+
+/* === Remove a marca "Digital Science" da sidebar === */
+.ds-nav-ds-name,
+[class^="ds-nav-ds-"],
+[class*=" ds-nav-ds-"] {
+  display: none !important;
+}
+
+/* === Logo UPFTeX no dashboard (cobre as duas variantes de tela), com troca por tema === */
+
+/* Variante 1: img dentro de .ds-nav-page-switcher-logo (ex.: tela de lixeira) */
+.ds-nav-page-switcher-logo img {
+  content: url('/img/upf/upftex-logo-navbar.png') !important;
+  height: 40px !important;
+  width: auto !important;
+}
+body:not([data-theme="light"]) .ds-nav-page-switcher-logo img {
+  content: url('/img/upf/upftex-logo-navbar-white.png') !important;
+}
+
+/* Variante 2: .navbar-logo com background-image (ex.: tela de projetos) */
+.navbar-main .navbar-logo {
+  background-image: url('/img/upf/upftex-logo-navbar.png') !important;
+  width: 150px !important;
+  height: 40px !important;
+  background-size: contain !important;
+  background-position: left center !important;
+}
+body:not([data-theme="light"]) .navbar-main .navbar-logo {
+  background-image: url('/img/upf/upftex-logo-navbar-white.png') !important;
+}
+
+/* === Dark mode com tons esverdeados da UPF === */
+:root {
+  --bg-dark-primary: #1e1e1e !important;
+  --bg-dark-secondary: #2a2a2a !important;
+}
+
+/* === Corrige area clara ao rolar alem do conteudo (dark mode) === */
+body:not([data-theme="light"]),
+body:not([data-theme="light"]) #project-list-root,
+body:not([data-theme="light"]) .project-ds-nav-page,
+body:not([data-theme="light"]) .project-list-wrapper {
+  background-color: #1e1e1e !important;
+}
+
+/* === Rodape no dark mode (evita faixa clara ao rolar) === */
+body:not([data-theme="light"]) .site-footer {
+  background-color: #1e1e1e !important;
+}
+body:not([data-theme="light"]) .site-footer,
+body:not([data-theme="light"]) .site-footer a {
+  color: #c6c6c6 !important;
+}
+
+/* === Corrige linha azul entre sidebar e conteudo (dark mode) === */
+body:not([data-theme="light"]) .project-ds-nav-content {
+  border-top-color: #333333 !important;
+  border-left-color: #333333 !important;
+}
+body:not([data-theme="light"]) .project-list-sidebar-scroll {
+  border-top-color: #333333 !important;
+  border-left-color: #333333 !important;
+}
+
+/* === Neutraliza a borda azul "ativa" (tabela, sidebar, conteudo) === */
+:root {
+  --border-active: #333333 !important;
+  --border-active-dark: #333333 !important;
+}
+
+/* === Borda da tabela de projetos no dark mode === */
+body:not([data-theme="light"]) .table-container-bordered {
+  border-color: #333333 !important;
+}
+body:not([data-theme="light"]) .table-container-bordered,
+body:not([data-theme="light"]) .table-container-bordered > * {
+  box-shadow: none !important;
+}
+
+/* === Bordas internas da tabela de projetos no dark mode === */
+body:not([data-theme="light"]) .project-dash-table th,
+body:not([data-theme="light"]) .project-dash-table td,
+body:not([data-theme="light"]) .project-dash-table tr,
+body:not([data-theme="light"]) .table th,
+body:not([data-theme="light"]) .table td {
+  border-color: #333333 !important;
+}
+
+/* === Bordas na lista de filtros da sidebar (dark mode) === */
+body:not([data-theme="light"]) .project-list-filters,
+body:not([data-theme="light"]) .project-list-filters li,
+body:not([data-theme="light"]) .project-list-filters hr,
+body:not([data-theme="light"]) .project-list-filters .sidebar-filter-button {
+  border-color: #333333 !important;
+}
+body:not([data-theme="light"]) .project-list-filters hr {
+  background-color: #333333 !important;
+  color: #333333 !important;
+}
