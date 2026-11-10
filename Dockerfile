@@ -8,7 +8,9 @@ LABEL description="UPFTeX - Overleaf CE customizado para a Universidade de Passo
 # explicitamente: mktexlsr (indice de arquivos), tlmgr generate language
 # (hifenizacao), registro dos mapas de
 # fonte a partir do tlpdb + updmap-sys, e fmtutil-sys (formatos).
-RUN tlmgr update --self \
+ARG TL_REPO=https://mirror.ctan.org/systems/texlive/tlnet
+RUN tlmgr option repository $TL_REPO \
+ && tlmgr update --self \
  && tlmgr --no-execute-actions install scheme-full \
  && mktexlsr \
  && tlmgr generate language \
