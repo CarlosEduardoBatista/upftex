@@ -132,3 +132,101 @@ body:not([data-theme="light"]) .project-list-filters hr {
   background-color: #333333 !important;
   color: #333333 !important;
 }
+
+/* Topo (deslogado): os links vem do header_extras; esconde os originais */
+.navbar li:has(> a[href="/register"]),
+.navbar li:not(.upf-nav):has(> a[href="/login"]) {
+  display: none !important;
+}
+
+/* === Rodape em uma linha: itens a esquerda, aviso ao centro, codigo-fonte a direita === */
+.site-footer .site-footer-content {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 1.5rem;
+  row-gap: 0.25rem;
+}
+.site-footer .site-footer-content > .row {
+  display: contents;
+}
+.site-footer .site-footer-content > .row > * {
+  width: auto !important;
+  max-width: none !important;
+  flex: 0 0 auto;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.site-footer .site-footer-content > .row > .site-footer-items:not(.text-end) { order: 1; }
+.site-footer .site-footer-content > .row:last-child > * {
+  order: 2;
+  flex: 1 1 24rem !important;
+  min-width: 0;
+}
+.site-footer .site-footer-content > .row > .site-footer-items.text-end { order: 3; }
+.site-footer .copyright-notice {
+  max-width: none !important;
+  margin: 0 !important;
+  font-size: 11px !important;
+  line-height: 1.3 !important;
+  text-align: center !important;
+}
+.site-footer .site-footer-items {
+  font-size: 11px !important;
+  margin: 0 !important;
+}
+
+/* === Login: cartao maior e centralizado na vertical === */
+#main-content.upf-login-bg {
+  display: flex !important;
+  align-items: center !important;
+}
+#main-content.upf-login-bg > .container {
+  width: 100%;
+}
+#main-content.upf-login-bg .row > [class*="col-"] {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  max-width: 460px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+#main-content.upf-login-bg .upf-login-card {
+  margin-top: 0 !important;
+  padding: 44px 40px !important;
+}
+#main-content.upf-login-bg .upf-login-card img[alt="UPFTeX"] {
+  max-width: 260px !important;
+}
+#main-content.upf-login-bg .upf-login-card .btn {
+  padding-top: 0.65rem !important;
+  padding-bottom: 0.65rem !important;
+  font-size: 1rem !important;
+}
+
+/* Login: botoes retangulares com cantos levemente arredondados */
+#main-content.upf-login-bg .upf-login-card .btn {
+  border-radius: 6px !important;
+}
+
+/* Login: espaco entre os botoes empilhados */
+#main-content.upf-login-bg .upf-login-card .btn + .btn {
+  margin-top: 10px !important;
+}
+
+/* === Editor: simbolo da UPF no lugar do logo do Overleaf === */
+/* Padrao (tema escuro): simbolo em branco, versao monocromatica do manual */
+.toolbar-ol-logo {
+  background-image: url('/favicon.svg') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: transparent !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  filter: brightness(0) invert(1);
+}
+/* Tema claro: simbolo colorido */
+body[data-theme="light"] .toolbar-ol-logo {
+  filter: none;
+}

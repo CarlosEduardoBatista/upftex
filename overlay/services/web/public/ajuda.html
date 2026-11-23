@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajuda – UPFTeX</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --verde: #007735;
+    --verde-escuro: #005f2a;
+    --texto: #1f2a24;
+    --suave: #56625b;
+    --fundo: #ffffff;
+    --superficie: #f3f6f4;
+    --linha: #dde4df;
+    --link: #007735;
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --texto: #e8ece9;
+      --suave: #a7b1ab;
+      --fundo: #1e1e1e;
+      --superficie: #2a2a2a;
+      --linha: #333333;
+      --link: #6cc596;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  .faixa {
+    height: 8px;
+    background: linear-gradient(to right, #076D3B, #289C39, #76B729, #C6D500, #F2DE00, #F5A400, #EE7900, #E24200, #DB2325, #C30710);
+  }
+  header, main, footer { max-width: 44rem; margin: 0 auto; padding: 0 1.5rem; }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; padding-top: 2rem; padding-bottom: 1rem;
+  }
+  header img { height: 44px; width: auto; display: block; }
+  a { color: var(--link); text-underline-offset: 0.18em; }
+  a:focus-visible { outline: 3px solid var(--verde); outline-offset: 3px; border-radius: 2px; }
+  .voltar { font-weight: 600; text-decoration: none; }
+  .voltar:hover { text-decoration: underline; }
+  h1 { font-size: 2.25rem; line-height: 1.15; margin: 1.5rem 0 0.75rem; letter-spacing: -0.01em; }
+  .intro { font-size: 1.1875rem; color: var(--suave); margin: 0 0 2.5rem; max-width: 36rem; }
+  section { border-top: 1px solid var(--linha); padding: 1.75rem 0 0.5rem; }
+  h2 { font-size: 1.375rem; margin: 0 0 0.75rem; }
+  p { margin: 0 0 1rem; }
+  ol { padding-left: 1.4rem; margin: 0 0 1rem; }
+  li { margin-bottom: 0.6rem; padding-left: 0.25rem; }
+  li::marker { color: var(--verde); font-weight: 700; }
+  .aviso {
+    background: var(--superficie);
+    border-left: 4px solid var(--verde);
+    padding: 0.9rem 1.1rem;
+    margin: 0 0 1rem;
+    border-radius: 0 6px 6px 0;
+  }
+  .aviso strong { display: block; margin-bottom: 0.25rem; }
+  kbd {
+    font: inherit; font-size: 0.9em;
+    background: var(--superficie); border: 1px solid var(--linha);
+    border-radius: 4px; padding: 0.05em 0.4em;
+  }
+  .rotulo { font-weight: 600; }
+  .contato p { margin-bottom: 0.4rem; }
+  footer {
+    color: var(--suave); font-size: 0.9375rem;
+    padding-top: 2.5rem; padding-bottom: 2.5rem;
+  }
+  footer p { margin: 0 0 0.25rem; }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.875rem; }
+    header img { height: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="faixa"></div>
+
+<header>
+  <a href="/" aria-label="UPFTeX, voltar à página inicial">
+    <picture>
+      <source srcset="/img/upf/upftex-logo-navbar-white.png" media="(prefers-color-scheme: dark)">
+      <img src="/img/upf/upftex-logo-navbar.png" alt="UPFTeX">
+    </picture>
+  </a>
+  <a class="voltar" href="/">Voltar ao UPFTeX</a>
+</header>
+
+<main>
+  <h1>Ajuda</h1>
+  <p class="intro">O UPFTeX é o ambiente da Universidade de Passo Fundo para escrever trabalhos acadêmicos em LaTeX, com edição em conjunto e compilação direto no navegador.</p>
+
+  <section aria-labelledby="entrar">
+    <h2 id="entrar">Como entrar</h2>
+    <p>Na tela inicial, clique em <span class="rotulo">Entrar com a conta UPF</span>. Você será levado ao login do Google: use o seu e-mail institucional, terminado em <strong>@upf.br</strong>. No primeiro acesso, sua conta no UPFTeX é criada automaticamente.</p>
+    <div class="aviso">
+      <strong>Apareceu “Acesso permitido apenas para contas institucionais”?</strong>
+      Você entrou com uma conta Google pessoal. Saia dela no Google, ou abra uma janela anônima, e entre de novo com o e-mail @upf.br.
+    </div>
+  </section>
+
+  <section aria-labelledby="comecar">
+    <h2 id="comecar">Primeiros passos</h2>
+    <ol>
+      <li>Na lista de projetos, clique em <span class="rotulo">New project</span>. Escolha <span class="rotulo">Blank project</span> para começar do zero, ou <span class="rotulo">Upload project</span> para enviar o modelo do seu curso em formato .zip.</li>
+      <li>Escreva o texto no editor, à esquerda.</li>
+      <li>Clique em <span class="rotulo">Recompile</span>, ou use <kbd>Ctrl</kbd> + <kbd>Enter</kbd>, para gerar o PDF, que aparece à direita.</li>
+      <li>Se a compilação falhar, abra os registros de erro (o ícone ao lado do botão de compilar). Eles indicam o arquivo e a linha do problema.</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="compartilhar">
+    <h2 id="compartilhar">Trabalhar com colegas e orientador</h2>
+    <p>Dentro de um projeto, clique em <span class="rotulo">Share</span> e informe o e-mail @upf.br da pessoa. Você escolhe se ela pode editar ou apenas visualizar. Todos veem as alterações em tempo real, e o histórico guarda as versões anteriores.</p>
+    <p>Projetos são privados: só quem você convidar consegue abri-los.</p>
+  </section>
+
+  <section aria-labelledby="ortografia">
+    <h2 id="ortografia">Correção ortográfica em português</h2>
+    <p>Nas configurações do editor, em <span class="rotulo">Spell check</span>, selecione <span class="rotulo">Portuguese (Brazilian)</span>. As palavras não reconhecidas ficam sublinhadas, e o clique com o botão direito mostra sugestões.</p>
+  </section>
+
+  <section aria-labelledby="latex">
+    <h2 id="latex">Aprender LaTeX</h2>
+    <p>A documentação do Overleaf tem guias para iniciantes e referências sobre figuras, tabelas, equações e bibliografia: <a href="https://www.overleaf.com/learn" rel="noopener">overleaf.com/learn</a>.</p>
+  </section>
+
+  <section aria-labelledby="suporte" class="contato">
+    <h2 id="suporte">Suporte</h2>
+    <p>Encontrou um problema ou tem uma dúvida que não está aqui? Fale com o responsável pelo UPFTeX:</p>
+    <p><strong>Carlos Eduardo Rosa Batista</strong></p>
+    <p><a href="mailto:193570@upf.br">193570@upf.br</a></p>
+    <p>Também é possível relatar problemas no <a href="https://github.com/CarlosEduardoBatista/upftex/issues" rel="noopener">repositório do projeto</a>.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Universidade de Passo Fundo</p>
+  <p>UPFTeX é baseado no Overleaf Community Edition. <a href="https://github.com/CarlosEduardoBatista/upftex" rel="noopener">Código-fonte</a></p>
+</footer>
+</body>
+</html>

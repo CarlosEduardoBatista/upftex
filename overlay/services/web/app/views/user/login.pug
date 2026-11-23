@@ -70,23 +70,35 @@ block content
 								| Acesso permitido apenas para contas institucionais. Use sua conta da Universidade de Passo Fundo.
 						.text-center.mb-4
 							img(src='/img/upf/upftex-logo-navbar.png' alt='UPFTeX' style='max-width: 220px; height: auto;')
-						form(name='loginForm' data-ol-async-form action='/login' method='POST')
-							input(name='_csrf' type='hidden' value=csrfToken)
-							+formMessagesNewStyle
-							.form-group
-								label(for='email') #{translate("email")}
-								input#email.form-control(name='email' type='email' required autofocus='true' autocomplete='username')
-							.form-group
-								label(for='password') #{translate("password")}
-								input#password.form-control(name='password' type='password' autocomplete='current-password' required)
-							.actions
-								button.btn-primary.btn(type='submit' data-ol-disabled-inflight)
-									span(data-ol-inflight='idle') #{translate("login")}
-									span(hidden data-ol-inflight='pending') #{translate("logging_in")}…
-								a.float-end(href='/user/password/reset') #{translate("forgot_your_password")}?
-							if login_support_text
+							p.text-muted.mt-3.mb-0 Ambiente de escrita acadêmica em LaTeX da Universidade de Passo Fundo
+						if getReqQueryParam("local") === "1"
+							form(name='loginForm' data-ol-async-form action='/login' method='POST')
+								input(name='_csrf' type='hidden' value=csrfToken)
+								+formMessagesNewStyle
+								.form-group
+									label(for='email') #{translate("email")}
+									input#email.form-control(name='email' type='email' required autofocus='true' autocomplete='username')
+								.form-group
+									label(for='password') #{translate("password")}
+									input#password.form-control(name='password' type='password' autocomplete='current-password' required)
+								.actions
+									button.btn-primary.btn(type='submit' data-ol-disabled-inflight)
+										span(data-ol-inflight='idle') #{translate("login")}
+										span(hidden data-ol-inflight='pending') #{translate("logging_in")}…
+									a.float-end(href='/user/password/reset') #{translate("forgot_your_password")}?
+								if login_support_text
+									hr
+									p.text-center !{login_support_text}
+							.text-center.mt-3
 								hr
-								p.text-center !{login_support_text}
-						.text-center.mt-3
-							hr
-							a.btn.btn-secondary.w-100(href="/oidc/login") Entrar com conta UPF (Google)
+								a.btn.btn-secondary.w-100(href="/oidc/login") Entrar com a conta UPF
+						else
+							a.btn.btn-primary.w-100.d-inline-flex.align-items-center.justify-content-center.gap-2(href="/oidc/login")
+								img(src='/favicon.svg' alt='' aria-hidden='true' style='height: 1.4em; width: auto; filter: brightness(0) invert(1);')
+								span Entrar com a conta UPF
+							a.btn.btn-secondary.w-100.mt-2.d-inline-flex.align-items-center.justify-content-center.gap-2(href="/login?local=1")
+								svg(xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true")
+									rect(x="4" y="11" width="16" height="10" rx="2")
+									path(d="M8 11V7a4 4 0 0 1 8 0v4")
+								span Acesso administrativo
+							p.small.text-muted.text-center.mt-3.mb-0 Ao entrar com a conta UPF, você será direcionado ao login do Google. Use seu e-mail @upf.br.

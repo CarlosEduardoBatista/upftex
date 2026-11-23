@@ -36,6 +36,8 @@ COPY overlay/services/web/public/favicon.svg overlay/services/web/public/favicon
 
 COPY overlay/services/web/public/upf-theme.css /overleaf/services/web/public/upf-theme.css
 
+COPY overlay/services/web/public/ajuda.html /overleaf/services/web/public/ajuda.html
+
 COPY overlay/services/web/app/views/layout-base.pug /overleaf/services/web/app/views/layout-base.pug
 
 COPY overlay/services/web/modules/oidc-upf /overleaf/services/web/modules/oidc-upf
