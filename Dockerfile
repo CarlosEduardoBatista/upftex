@@ -26,6 +26,10 @@ RUN tlmgr option repository $TL_REPO \
 # pelo kpsewhich depois de entrar no ls-R.
 RUN mktexlsr && updmap-sys
 
+RUN tlmgr path add \
+    && command -v biber \
+    && biber --version
+
 RUN sed -i "s|moduleImportSequence: \[|oauthProviders: { 'oidc-upf': { name: 'UPF (Google)' } },\n  moduleImportSequence: ['oidc-upf',|" /overleaf/services/web/config/settings.defaults.js \
  && grep -q "moduleImportSequence: \['oidc-upf'," /overleaf/services/web/config/settings.defaults.js \
  && grep -q "oauthProviders: { 'oidc-upf'" /overleaf/services/web/config/settings.defaults.js
